@@ -6,13 +6,20 @@
 package com.udec.relevoscarrera;
 
 /**
+ * Esta clase ejecuta el programa.
  *
- * @author Angie Manrique
+ * @author Angie Manrique Alisson Celeita
+ *
  */
 public class Principal {
-    
-    public static void main(String[] args){
+
+    /**
+     * Metodo main.
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
         Carrera carrera = new Carrera();
     }
-    
+
 }

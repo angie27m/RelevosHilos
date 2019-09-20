@@ -9,11 +9,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Este metodo ejecuta todos los hilos
  *
- * @author Angie Manrique
+ * @author Angie Manrique Alisson Celeita
  */
 public class Carrera {
 
+    /**
+     * En el constructor se crean los carriles de la carrera y los respectivos
+     * hilos tambien se ejecutan los hilos.
+     */
     public Carrera() {
         Carril carr1 = new Carril("Carril #1");
         Carril carr2 = new Carril("Carril #2");
@@ -28,8 +33,7 @@ public class Carrera {
         Corredor corredor7 = new Corredor(0, carr3);
         Corredor corredor8 = new Corredor(33, carr3);
         Corredor corredor9 = new Corredor(66, carr3);
-        
-        
+
         corredor1.start();
         corredor2.start();
         corredor3.start();

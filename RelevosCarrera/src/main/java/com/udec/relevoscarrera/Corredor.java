@@ -9,41 +9,78 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Esta clase encapsula el objeto Corredor, que seran cada uno de los hilos.
  *
- * @author Angie Manrique
+ * @author Angie Manrique Alisson Celeita
  */
 public class Corredor extends Thread {
 
+    //Esta variable corresponde a la posicion en el carril
     private int posicion;
-
+    //Esta variable crea un objeto tipo Carril
     private Carril carril;
+    //Esta variable es la cantidad de pasos que aumenta cada corredor
     private int pasos;
-
+    //Variable de referencia para el carril 1
     private String carriluno;
+    //Variable de referencia para el carril 2
     private String carrildos;
+    //Variable de referencia para el carril 3
     private String carriltres;
 
+    /**
+     * El constructor se encarga de crear los objetos tipo Corredor
+     *
+     * @param posicion Esta variable contiene la posicion del corredor.
+     * @param carril Esta variable contiene el objeto carril.
+     */
     public Corredor(int posicion, Carril carril) {
         this.posicion = posicion;
         this.carril = carril;
     }
-
+    public Corredor(){
+        
+    }
+    /**
+     * Metodo para obtener la posicion del corredor
+     *
+     * @return Retorna la posicion del corredor
+     */
     public int getPosicion() {
         return posicion;
     }
 
+    /**
+     * Metodo para darle valor a la variable posicion.
+     *
+     * @param posicion
+     */
     public void setPosicion(int posicion) {
         this.posicion = posicion;
     }
 
+    /**
+     * Metodo para obtener el carril del corredor
+     *
+     * @return Retorna el carril del corredor
+     */
     public Carril getCarril() {
         return carril;
     }
 
+    /**
+     * Metodo para darle valor al objeto carril.
+     *
+     * @param carril
+     */
     public void setCarril(Carril carril) {
         this.carril = carril;
     }
 
+    /**
+     * Metodo que arranca cada uno de los hilos y evalua la posición en la que
+     * se encuentra el corredor.
+     */
     @Override
     public void run() {
         if (posicion == 0) {
@@ -63,11 +100,20 @@ public class Corredor extends Thread {
         }
     }
 
+    /**
+     * Metodo que le da un valor randomico entre 1 y 3 a los pasos que da cada
+     * corredor
+     *
+     * @return Retorna los pasos que debe dar el corredor
+     */
     public int cantidadPasos() {
         pasos = (int) (Math.random() * 3 + 1);
         return pasos;
     }
 
+    /**
+     * Metodo que hace mover al corredor 1 y notifica cuando este termine.
+     */
     public void correr1() {
         while (true) {
             int pos = correr(1);
@@ -82,6 +128,9 @@ public class Corredor extends Thread {
         }
     }
 
+    /**
+     * Metodo que hace mover al corredor 2 y notifica cuando este termine.
+     */
     public void correr2() {
         while (true) {
             int pos = correr(2);
@@ -95,6 +144,9 @@ public class Corredor extends Thread {
         }
     }
 
+    /**
+     * Metodo que hace mover al corredor 3 y notifica si gano la carrera.
+     */
     public void correr3() {
         while (true) {
             int pos = correr(3);
@@ -109,11 +161,18 @@ public class Corredor extends Thread {
                 }
                 System.out.println("Carril ganador: " + carril.getNombre());
                 System.exit(0);
-
+                break;
+                
             }
         }
     }
 
+    /**
+     * Metodo que recoge las posiciones de cada uno de los corredores.
+     *
+     * @param numCorredor Esta variable recibe el corredor
+     * @return Retorna la posicion
+     */
     public int correr(int numCorredor) {
         cantidadPasos();
         if (numCorredor == 1) {
@@ -139,11 +198,13 @@ public class Corredor extends Thread {
         return 0;
     }
 
+    /**
+     * Este metodo hace que el hilo espere hasta que le llegue la notificacion.
+     */
     public void esperar() {
         synchronized (carril) {
             try {
                 carril.wait();
-
             } catch (InterruptedException ex) {
                 Logger.getLogger(Corredor.class
                         .getName()).log(Level.SEVERE, null, ex);
@@ -151,6 +212,9 @@ public class Corredor extends Thread {
         }
     }
 
+    /**
+     * Este metodo realiza las impresiones segun el carril.
+     */
     public void mostrarCarriles() {
         if (carril.imprimirCarrera().contains("Carril #1")) {
             carriluno = carril.imprimirCarrera();
@@ -168,7 +232,5 @@ public class Corredor extends Thread {
                 System.out.println(carriltres);
             }
         }
-
     }
-
 }
